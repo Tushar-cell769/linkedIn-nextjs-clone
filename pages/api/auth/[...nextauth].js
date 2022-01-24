@@ -16,6 +16,12 @@ export default NextAuth({
   pages: {
     signIn: "/home",
   },
+  callbacks: {
+    async session({ session, token }) {
+      session.user.uid = token.sub;
+      return session;
+    },
+  },
   session: {
     strategy: "jwt",
   },

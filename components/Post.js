@@ -5,7 +5,7 @@ import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined
 import ThumbUpOffAltRoundedIcon from "@mui/icons-material/ThumbUpOffAltRounded";
 import { useRecoilState } from "recoil";
 import { handlePostState, getPostState } from "../atoms/postAtom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
@@ -14,7 +14,7 @@ import TimeAgo from "timeago-react";
 import { useSession } from "next-auth/react";
 
 const Post = ({
-  post: { input, photoUrl, userImg, username, email, createdAt, _id },
+  post: { input, photoUrl, userImg, username, email, createdAt, _id, likes },
   modalPost,
 }) => {
   const { data: session } = useSession();
@@ -24,6 +24,13 @@ const Post = ({
   const [showInput, setShowInput] = useState(false);
   const [handlePost, setHandlePost] = useRecoilState(handlePostState);
   const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    if (likes && session) {
+      let isLiked = likes.some((like) => like["userId"] === session?.user?.uid);
+      setLiked(isLiked);
+    }
+  }, [likes]);
 
   const truncate = (string, n) =>
     string?.length > n ? string.substr(0, n - 1) + "...see more" : string;
@@ -38,6 +45,30 @@ const Post = ({
 
     setHandlePost(true);
     setModalOpen(false);
+  };
+
+  const handleLikes = async (postId) => {
+    let type, body;
+    if (liked) {
+      type = "remove";
+      body = JSON.stringify({
+        userId: session?.user?.uid,
+      });
+    } else {
+      type = "add";
+      body = JSON.stringify({
+        userId: session?.user?.uid,
+        createdAt: new Date().toString(),
+      });
+    }
+    const response = await fetch(`/api/posts/${postId}/${type}-like`, {
+      method: "PUT",
+      body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    setHandlePost(true);
   };
 
   return (
@@ -108,7 +139,7 @@ const Post = ({
         ) : (
           <button
             className={`postButton ${liked && "text-blue-500"}`}
-            onClick={() => setLiked(!liked)}
+            onClick={() => handleLikes(_id)}
           >
             {liked ? (
               <ThumbUpOffAltRoundedIcon className="-scale-x-100" />
