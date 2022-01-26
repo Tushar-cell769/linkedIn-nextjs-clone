@@ -11,6 +11,8 @@ import { Avatar } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const spring = {
   type: "spring",
@@ -19,10 +21,20 @@ const spring = {
 };
 
 const Header = () => {
+  const { data: session } = useSession();
   const [mounted, setMounted] = useState(false);
   const { setTheme, resolvedTheme, theme } = useTheme();
+  const router = useRouter();
 
   useEffect(() => setMounted(true), []);
+
+  const checkPath = (url) => {
+    if (router.pathname === url) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <header
@@ -51,12 +63,25 @@ const Header = () => {
       </div>
       {/* Right */}
       <div className="flex items-center space-x-6">
-        <HeaderLink Icon={HomeRoundedIcon} text="Home" feed active />
+        <HeaderLink
+          Icon={HomeRoundedIcon}
+          text="Home"
+          feed
+          active={checkPath("/")}
+          url={"/"}
+        />
         <HeaderLink Icon={GroupIcon} text="My Network" feed />
         <HeaderLink Icon={BusinessCenterIcon} text="Jobs" feed hidden />
         <HeaderLink Icon={ChatIcon} text="Messaging" feed />
         <HeaderLink Icon={NotificationsIcon} text="Notifications" feed />
-        <HeaderLink Icon={Avatar} text="Me" feed avatar hidden />
+        <HeaderLink
+          Icon={Avatar}
+          text="Me"
+          feed
+          avatar
+          hidden
+          url={session?.user?.uid}
+        />
         <HeaderLink Icon={AppsOutlinedIcon} text="Work" feed hidden />
 
         {/* Dark Mode toggle */}

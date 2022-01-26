@@ -18,6 +18,7 @@
     "next-themes": "^0.0.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.25.0",
     "recoil": "^0.5.2",
     "timeago-react": "^3.0.4"
   },

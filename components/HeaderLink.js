@@ -1,7 +1,10 @@
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-const HeaderLink = ({ Icon, text, avatar, feed, active, hidden }) => {
+const HeaderLink = ({ Icon, text, avatar, feed, active, hidden, url }) => {
   const { data: session } = useSession();
+  const router = useRouter();
+
   return (
     <div
       className={`${
@@ -11,7 +14,7 @@ const HeaderLink = ({ Icon, text, avatar, feed, active, hidden }) => {
           ? "text-black/60 hover:text-black dark:text-white/75 dark:hover:text-white lg:-mb-1.5 space-y-1"
           : "text-gray-500 hover:text-gray-700"
       } ${active && "!text-black dark:!text-white"}`}
-      onClick={() => avatar && signOut()}
+      onClick={() => router.push(url)}
     >
       {avatar ? (
         <Icon className="!h-7 !w-7 lg:!-mb-1" src={session?.user?.image} />

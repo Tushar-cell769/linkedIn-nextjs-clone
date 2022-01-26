@@ -2,7 +2,7 @@ import { Avatar } from "@mui/material";
 import Image from "next/image";
 import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const Sidebar = () => {
   const { data: session } = useSession();
@@ -14,7 +14,7 @@ const Sidebar = () => {
           <Image src="https://rb.gy/i26zak" layout="fill" priority />
         </div>
         <Avatar
-          // onClick={signOut}
+          onClick={signOut}
           src={session?.user?.image}
           className="!h-14 !w-14 !border-2 !absolute !top-4 !cursor-pointer"
         />

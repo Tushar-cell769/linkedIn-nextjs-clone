@@ -28,4 +28,17 @@
     .postButton{
         @apply flex items-center justify-center space-x-2 cursor-pointer hover:bg-black/10 dark:hover:bg-black/20 w-full py-2.5 rounded transition ease-out font-medium
     }
+
+    .editProfileLabel {
+        @apply text-sm font-normal text-gray-600
+    }
+
+    .editProfileInput {
+        @apply w-full mt-1 border-[1px] border-gray-500 rounded-sm py-[2px] px-2 hover:border-gray-700 hover:shadow-md focus:border-gray-700 focus:border-2 outline-none text-base text-gray-800
+    }
+
+    .editModalSavebtn {
+        @apply bg-blue-500 hover:bg-blue-800 mt-3 px-6 py-2 rounded-full text-white
+    }
+
 }
