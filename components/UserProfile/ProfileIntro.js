@@ -19,7 +19,12 @@ const ProfileIntro = ({ intro, user }) => {
           <EditIcon className="!w-5" />
         </div>
         <div className="absolute -bottom-14 left-5 rounded-full border-4 border-white w-36 h-36">
-          <Avatar src={user.image} className="w-full h-full" />
+          {/* <Avatar src={user.image} className="w-full h-full" /> */}
+          <img
+            src={user.image}
+            className="w-full h-full rounded-full"
+            alt="user-img"
+          />
         </div>
       </div>
       {/* Edit Icon */}
