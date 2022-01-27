@@ -1,10 +1,10 @@
 import { useSession } from "next-auth/react";
-import React from "react";
+import React, { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { handleSingleUserState } from "../../../atoms/userAtom";
 
-const EditIntroForm = ({ user, handleClose }) => {
+const EditIntroForm = ({ user, handleClose, editModalType }) => {
   const { intro } = user.metadata || {};
   const { data: session } = useSession();
   const [handleSingleUser, setHandleSingleUser] = useRecoilState(
@@ -35,38 +35,29 @@ const EditIntroForm = ({ user, handleClose }) => {
     });
   };
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col">
-          <label className="editProfileLabel">First name</label>
-          <input {...register("firstName")} className="editProfileInput" />
-        </div>
-        <div className="flex flex-col mt-7">
-          <label className="editProfileLabel">Last name</label>
-          <input {...register("lastName")} className="editProfileInput" />
-        </div>
-        <div className="flex flex-col mt-7">
-          <label className="editProfileLabel">Headline</label>
-          <input {...register("headline")} className="editProfileInput" />
-        </div>
-        <h3 className="mt-10 font-normal text-[22px] text-gray-800">
-          Location
-        </h3>
-        <div className="flex flex-col mt-2">
-          <label className="editProfileLabel">Country/Region</label>
-          <input {...register("country")} className="editProfileInput" />
-        </div>
-        <div className="flex flex-col mt-7">
-          <label className="editProfileLabel">City/District</label>
-          <input {...register("city")} className="editProfileInput" />
-        </div>
-        <div className="flex items-center justify-end border-t mt-10 border-gray-300">
-          <button type="submit" className="editModalSavebtn">
-            Save
-          </button>
-        </div>
-      </form>
-    </>
+    <form id={editModalType} onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col">
+        <label className="editProfileLabel">First name</label>
+        <input {...register("firstName")} className="editProfileInput" />
+      </div>
+      <div className="flex flex-col mt-7">
+        <label className="editProfileLabel">Last name</label>
+        <input {...register("lastName")} className="editProfileInput" />
+      </div>
+      <div className="flex flex-col mt-7">
+        <label className="editProfileLabel">Headline</label>
+        <input {...register("headline")} className="editProfileInput" />
+      </div>
+      <h3 className="mt-10 font-normal text-[22px] text-gray-800">Location</h3>
+      <div className="flex flex-col mt-2">
+        <label className="editProfileLabel">Country/Region</label>
+        <input {...register("country")} className="editProfileInput" />
+      </div>
+      <div className="flex flex-col mt-7">
+        <label className="editProfileLabel">City/District</label>
+        <input {...register("city")} className="editProfileInput" />
+      </div>
+    </form>
   );
 };
 
