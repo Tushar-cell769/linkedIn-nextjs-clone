@@ -29,6 +29,10 @@
         @apply flex items-center justify-center space-x-2 cursor-pointer hover:bg-black/10 dark:hover:bg-black/20 w-full py-2.5 rounded transition ease-out font-medium
     }
 
+    .editMainContainer {
+        @apply bg-white dark:bg-[#1d2226] rounded-lg mb-5 p-5
+    }
+
     .editProfileLabel {
         @apply text-sm font-normal text-gray-600
     }

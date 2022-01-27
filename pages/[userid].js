@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import { getSession, useSession } from "next-auth/react";
 import Profile from "../components/UserProfile/Profile";
 import Widgets from "../components/Widgets";
-import { editProfileModal } from "../atoms/modalAtom";
+import { profileModal } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
 import EditProfileModal from "../components/UserProfile/Modals/EditProfileModal";
 import { AnimatePresence } from "framer-motion";
@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import { handleSingleUserState, useSSRUserState } from "../atoms/userAtom";
 
 const UserProfile = ({ user, articles }) => {
-  const [profileModal, setProfileModal] = useRecoilState(editProfileModal);
+  const [editProfileModal, setEditProfileModal] = useRecoilState(profileModal);
   const [realtimeUser, setRealtimeUser] = useState([]);
   const [handleSingleUser, setHandleSingleUser] = useRecoilState(
     handleSingleUserState
@@ -53,10 +53,10 @@ const UserProfile = ({ user, articles }) => {
           <Widgets articles={articles} />
         </div>
         <AnimatePresence>
-          {profileModal && (
+          {editProfileModal && (
             <EditProfileModal
               user={useSSRUser ? user : realtimeUser}
-              handleClose={() => setProfileModal(false)}
+              handleClose={() => setEditProfileModal(false)}
             />
           )}
         </AnimatePresence>

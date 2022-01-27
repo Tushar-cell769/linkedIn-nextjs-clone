@@ -5,12 +5,17 @@ export const modalState = atom({
   default: false,
 });
 
-export const editProfileModal = atom({
-  key: "editProfileModal",
+export const profileModal = atom({
+  key: "profileModal",
   default: false,
 });
 
 export const modalTypeState = atom({
   key: "modalTypeState",
   default: "dropIn",
+});
+
+export const editModalTypeState = atom({
+  key: "editModalTypeState",
+  default: "",
 });
