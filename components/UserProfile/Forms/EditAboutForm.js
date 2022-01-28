@@ -17,20 +17,17 @@ const EditAboutForm = ({ user, editModalType, handleClose }) => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
-    handleClose();
-    // let body;
-    // body = JSON.stringify({ data });
-    // const response = await fetch(`/api/users/${session?.user?.uid}`, {
-    //   method: "PUT",
-    //   body,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // }).then(() => {
-    //   handleClose();
-    //   setHandleSingleUser(true);
-    // });
+    const body = JSON.stringify({ toUpdate: "about", data: data.about.trim() });
+    const response = await fetch(`/api/users/${session?.user?.uid}`, {
+      method: "PUT",
+      body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      handleClose();
+      setHandleSingleUser(true);
+    });
   };
 
   return (
