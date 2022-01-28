@@ -20,6 +20,7 @@ const UserProfile = ({ user, articles }) => {
     handleSingleUserState
   );
   const [useSSRUser, setUseSSRUser] = useRecoilState(useSSRUserState);
+  const [titleUserName, setTitleUserName] = useState(null);
   const { data: session } = useSession();
   const router = useRouter();
   const { userid } = router.query;
@@ -40,11 +41,25 @@ const UserProfile = ({ user, articles }) => {
     fetchUser();
   }, [handleSingleUser]);
 
+  useEffect(() => {
+    if (user) {
+      let splitStr = user.name.toLowerCase().split(" ");
+      for (let i = 0; i < splitStr.length; i++) {
+        // You do not need to check if i is larger than splitStr length, as your for does that for you
+        // Assign it back to the array
+        splitStr[i] =
+          splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+      }
+      // Directly return the joined string
+      setTitleUserName(splitStr.join(" "));
+    }
+  }, [user]);
+
   return (
     <div className="bg-[#f3f2ef] dark:bg-black dark:text-white h-screen overflow-y-scroll md:space-y-6">
       <Head>
         <title>{`${
-          session ? `${session?.user?.name} | LinkedIn` : "LinkedIn"
+          titleUserName ? `${titleUserName} | LinkedIn` : "LinkedIn"
         }`}</title>
       </Head>
       <Header />
