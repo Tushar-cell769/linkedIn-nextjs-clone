@@ -43,8 +43,9 @@ const UserProfile = ({ user, articles }) => {
   return (
     <div className="bg-[#f3f2ef] dark:bg-black dark:text-white h-screen overflow-y-scroll md:space-y-6">
       <Head>
-        <title>{`${session?.user?.name} | LinkedIn`}</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>{`${
+          session ? `${session?.user?.name} | LinkedIn` : "LinkedIn"
+        }`}</title>
       </Head>
       <Header />
       <main className="flex justify-center gap-x-5 px-4 sm:px-12">

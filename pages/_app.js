@@ -5,6 +5,8 @@ import "../styles/globals.css";
 
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
+import { Fragment } from "react";
+import Head from "next/head";
 const progress = new ProgressBar({
   size: 4,
   color: "#0a66c2",
@@ -18,13 +20,18 @@ Router.events.on("routeChangeError", progress.finish);
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <SessionProvider session={session}>
-      <RecoilRoot>
-        <ThemeProvider attribute="class">
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </RecoilRoot>
-    </SessionProvider>
+    <Fragment>
+      <Head>
+        <link rel="icon" href="/logos/linkedin.ico" />
+      </Head>
+      <SessionProvider session={session}>
+        <RecoilRoot>
+          <ThemeProvider attribute="class">
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </RecoilRoot>
+      </SessionProvider>
+    </Fragment>
   );
 }
 
