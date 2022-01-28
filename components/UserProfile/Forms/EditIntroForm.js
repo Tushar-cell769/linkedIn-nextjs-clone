@@ -21,8 +21,7 @@ const EditIntroForm = ({ user, handleClose, editModalType }) => {
   });
 
   const onSubmit = async (data) => {
-    let body;
-    body = JSON.stringify({ intro: data });
+    const body = JSON.stringify({ toUpdate: "intro", data: data });
     const response = await fetch(`/api/users/${session?.user?.uid}`, {
       method: "PUT",
       body,
