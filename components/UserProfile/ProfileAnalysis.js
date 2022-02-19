@@ -30,18 +30,18 @@ const ProfileAnalysis = () => {
   return (
     <EditContainer>
       <EditHeader special headerTitle={"Analytics"} />
-      <div className="flex flex-col md:flex-row mt-5">
+      <div className="flex flex-col mt-5 md:flex-row">
         {AnalyticsData.map((item) => (
           <div
             key={item.id}
-            className="flex flex-row justify-start items-start mr-5  last:mr-0 cursor-pointer"
+            className="flex flex-row items-start justify-start mr-5 cursor-pointer last:mr-0"
           >
-            <div className="text-black/60">{item.icon}</div>
+            <div className="text-black/60 dark:text-white">{item.icon}</div>
             <div className="ml-2">
-              <h4 className="font-semibold text-black/90 hover:text-blue-500 hover:underline decoration-blue-500">
+              <h4 className="font-semibold text-black/90 dark:text-white hover:text-blue-500 hover:underline decoration-blue-500">
                 {item.title}
               </h4>
-              <p className="font-normal text-sm">{item.description}</p>
+              <p className="text-sm font-normal">{item.description}</p>
             </div>
           </div>
         ))}

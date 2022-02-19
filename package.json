@@ -12,6 +12,8 @@
     "@mui/icons-material": "^5.3.0",
     "@mui/material": "^5.3.0",
     "@next-auth/mongodb-adapter": "^1.0.1",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
     "framer-motion": "^6.0.0",
     "mongodb": "^4.3.1",
     "next": "latest",
@@ -19,6 +21,7 @@
     "next-themes": "^0.0.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-draft-wysiwyg": "^1.14.7",
     "react-hook-form": "^7.25.0",
     "recoil": "^0.5.2",
     "timeago-react": "^3.0.4"

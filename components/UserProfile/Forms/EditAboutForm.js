@@ -1,23 +1,43 @@
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import React from "react";
-import { useForm } from "react-hook-form";
+import dynamic from "next/dynamic";
+import { Controller, useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { handleSingleUserState } from "../../../atoms/userAtom";
+import { EditorState, convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { ContentState } from "draft-js";
+import { convertFromHTML } from "draft-js";
+const Editor = dynamic(
+  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
+  { ssr: false }
+);
 
 const EditAboutForm = ({ user, editModalType, handleClose }) => {
   const { about } = user.metadata || {};
   const { data: session } = useSession();
+  const [editorState, setEditorState] = useState(
+    about
+      ? EditorState.createWithContent(
+          ContentState.createFromBlockArray(convertFromHTML(about))
+        )
+      : EditorState.createEmpty()
+  );
   const [handleSingleUser, setHandleSingleUser] = useRecoilState(
     handleSingleUserState
   );
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      about,
-    },
-  });
 
-  const onSubmit = async (data) => {
-    const body = JSON.stringify({ toUpdate: "about", data: data.about.trim() });
+  const { handleSubmit, control } = useForm();
+
+  const onEditorStateChange = (rawDraftContentState) => {
+    setEditorState(rawDraftContentState);
+  };
+
+  const onSubmit = async () => {
+    const html = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    const data = { about: html };
+    const body = JSON.stringify({ toUpdate: "about", data: data.about });
     const response = await fetch(`/api/users/${session?.user?.uid}`, {
       method: "PUT",
       body,
@@ -32,7 +52,7 @@ const EditAboutForm = ({ user, editModalType, handleClose }) => {
 
   return (
     <div>
-      <span className="text-black/80 text-sm">
+      <span className="text-sm text-black/80">
         You can write about your years of experience, industry, or skills.
         People also talk about their achievements or previous job experiences.
       </span>
@@ -41,10 +61,21 @@ const EditAboutForm = ({ user, editModalType, handleClose }) => {
         className="mt-2"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <textarea
-          {...register("about")}
-          className="w-full h-full border border-gray-500 rounded-md focus:border-3"
-        />
+        {window && (
+          <Controller
+            control={control}
+            name="about"
+            render={() => (
+              <Editor
+                editorState={editorState}
+                toolbarClassName="toolbarClassName"
+                wrapperClassName="wrapperClassName"
+                editorClassName="editorClassName"
+                onEditorStateChange={onEditorStateChange}
+              />
+            )}
+          />
+        )}
       </form>
     </div>
   );
