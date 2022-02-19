@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { Fragment } from "react";
 import { useRecoilState } from "recoil";
 import { editModalTypeState, profileModal } from "../../atoms/modalAtom";
@@ -16,16 +17,17 @@ const ProfileIntro = ({ intro, user }) => {
 
   return (
     <Fragment>
-      <div className="relative">
-        <img
+      <div className="relative w-full h-[195px]">
+        <Image
           className="rounded-t-lg"
-          src="https://media-exp1.licdn.com/dms/image/C5616AQGPTD1LlLPS4Q/profile-displaybackgroundimage-shrink_350_1400/0/1614531265589?e=1648684800&v=beta&t=GgbNEXzq4OCh1mevycICjhBjDUdLDxXy8dAkOnmrozE"
-          alt=""
+          src="https://rb.gy/i26zak"
+          layout="fill"
+          priority
         />
-        <div className="absolute bg-white rounded-full top-4 right-4 text-blue-500 w-7 h-7 flex justify-center items-center cursor-pointer">
+        <div className="absolute flex items-center justify-center text-blue-500 bg-white rounded-full cursor-pointer top-4 right-4 w-7 h-7">
           <Edit />
         </div>
-        <div className="absolute -bottom-14 left-5 rounded-full border-4 border-white w-36 h-36">
+        <div className="absolute border-4 border-white rounded-full -bottom-14 left-5 w-36 h-36">
           <img
             src={user.image}
             className="w-full h-full rounded-full"
@@ -37,18 +39,18 @@ const ProfileIntro = ({ intro, user }) => {
         <EditHeader headerIcon handleEvent={() => handleModal()} />
         <div className="flex flex-col md:flex-row">
           <div className="w-9/12 mt-3">
-            <h3 className="font-semibold text-2xl text-black/90">
+            <h3 className="text-2xl font-semibold text-black/90 dark:text-white">
               {intro ? intro.firstName + " " + intro.lastName : user.name}
             </h3>
             <p className="text-black/80 dark:text-white">{intro?.headline}</p>
-            <div className="flex justify-start items-center">
-              <p className="text-black/60 dark:text-white text-sm font-normal">
+            <div className="flex items-center justify-start">
+              <p className="text-sm font-normal text-black/60 dark:text-white">
                 {intro?.city}, <span>{intro?.country}</span>
               </p>
               {(intro?.city || intro?.country) && (
                 <button
                   type="button"
-                  className="ml-2 text-blue-500 font-semibold hover:underline text-base"
+                  className="ml-2 text-base font-semibold text-blue-500 hover:underline"
                 >
                   Contact info
                 </button>
@@ -57,7 +59,7 @@ const ProfileIntro = ({ intro, user }) => {
             <div>
               <button
                 type="button"
-                className="mt-2 text-blue-500 font-semibold hover:underline text-base"
+                className="mt-2 text-base font-semibold text-blue-500 hover:underline"
               >
                 500+ Connections
               </button>

@@ -41,7 +41,7 @@ const Header = () => {
       className={`sticky top-0 z-40 bg-white dark:bg-[#1d2226] flex items-center justify-around py-1.5 px-3 focus-within:shadow-lg`}
     >
       {/* Left */}
-      <div className="flex items-center space-x-2 w-full max-w-xs">
+      <div className="flex items-center w-full max-w-xs space-x-2">
         {mounted && (
           <>
             {resolvedTheme === "dark" ? (
@@ -57,7 +57,7 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search"
-            className="hidden md:inline-flex bg-transparent text-sm focus:outline-none placeholder-black/70 dark:placeholder-white/75 flex-grow"
+            className="flex-grow hidden text-sm bg-transparent md:inline-flex focus:outline-none placeholder-black/70 dark:placeholder-white/75"
           />
         </div>
       </div>
@@ -96,7 +96,7 @@ const Header = () => {
           >
             <span className="absolute left-0">🌜</span>
             <motion.div
-              className="w-5 h-5 bg-white rounded-full z-40"
+              className="z-40 w-5 h-5 bg-white rounded-full"
               layout
               transition={spring}
             />

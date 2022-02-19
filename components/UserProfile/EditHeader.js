@@ -9,13 +9,18 @@ const EditHeader = ({ special, headerTitle, headerIcon, handleEvent }) => {
         headerIcon && "flex flex-row justify-between items-center"
       }`}
     >
-      <h3 className="font-semibold text-xl text-black/90">{headerTitle}</h3>
+      <h3 className="text-xl font-semibold text-black/90 dark:text-white">
+        {headerTitle}
+      </h3>
       {headerIcon && <Edit handleEvent={handleEvent} />}
 
       {special && (
         <div className="flex flex-row items-center justify-start">
-          <RemoveRedEyeIcon className="!text-black/60 mr-1" fontSize="25px" />
-          <p className="text-black/60 dark:text-white text-sm font-normal">
+          <RemoveRedEyeIcon
+            className="!text-black/60 mr-1 dark:!text-white"
+            fontSize="25px"
+          />
+          <p className="text-sm font-normal text-black/60 dark:text-white">
             Private to you
           </p>
         </div>

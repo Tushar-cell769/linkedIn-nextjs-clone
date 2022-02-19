@@ -10,7 +10,7 @@
 
 @layer components {
     .intent {
-        @apply flex justify-between items-center hover:shadow-xl p-4 cursor-pointer rounded-lg text-black bg-white max-w-md mx-auto xl:mx-0;
+        @apply flex items-center justify-between max-w-md p-4 mx-auto text-black bg-white rounded-lg cursor-pointer hover:shadow-xl xl:mx-0;
     }
 
     .sidebarButton {
@@ -43,6 +43,10 @@
 
     .editModalSavebtn {
         @apply bg-blue-500 hover:bg-blue-800 mt-3 px-6 py-2 rounded-full text-white
+    }
+
+    .about-user-editor span{
+        @apply dark:!text-white dark:!bg-[#1d2226]
     }
 
 }
